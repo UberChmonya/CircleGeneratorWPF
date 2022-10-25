@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
 
 namespace CircleGeneratorWPF
@@ -14,17 +15,20 @@ namespace CircleGeneratorWPF
         private int _radius;
         public int OffsetX;
         public int OffsetY;
+        private int _size;
         public Circle(int radius, int offsetX, int offsetY)
         {
+            _size = 2;
             _radius = radius;
             Points = new List<Point>();
             OffsetX = offsetX;
             OffsetY = offsetY;
             CreateList();
         }
-        public void ChangeSize(int size)
+        public void ChangeSize(int size = 2)
         {
-            foreach(var point in Points) point.ChangeSize(size);
+            _size = size;
+            foreach (var point in Points) point.ChangeSize(size);
         }
         private void CreateList()
         {
@@ -41,6 +45,7 @@ namespace CircleGeneratorWPF
                 Points.Add(new Point(-y, -x));
             }
             ParseAngle();
+            ChangeSize(_size);
         }
         private void ParseAngle()
         {
@@ -54,6 +59,5 @@ namespace CircleGeneratorWPF
             Points.Clear();
             CreateList();
         }
-
     }
 }

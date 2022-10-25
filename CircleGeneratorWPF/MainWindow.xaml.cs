@@ -49,7 +49,6 @@ namespace CircleGeneratorWPF
             _circle.ChangeSize(_pixelSize);
             Draw_Circle();
         }
-
         private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider)
         {
             int radius = (int)slider.NewValue;
