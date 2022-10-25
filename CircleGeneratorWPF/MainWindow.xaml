@@ -25,6 +25,7 @@
                 Background="White"
                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+                SizeChanged="OnChangeCanvas"
             />
         </Border>
 

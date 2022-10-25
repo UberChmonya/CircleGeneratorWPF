@@ -1,14 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices.ComTypes;
-using System.Text.RegularExpressions;
+﻿
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using static System.Net.Mime.MediaTypeNames;
+
 
 namespace CircleGeneratorWPF
 {
@@ -16,10 +11,10 @@ namespace CircleGeneratorWPF
     {
 
         private readonly Circle _circle;
-        double aspect = 1.3;
+        private double aspect = 1.3;
+        private Size SizeCanvas;
         public MainWindow()
         {
-
             canvas = new Canvas();
             _circle = new Circle(40, 10, 10);
             InitializeComponent();
@@ -39,7 +34,7 @@ namespace CircleGeneratorWPF
         {
             if (sizeInfo.WidthChanged) this.Width = sizeInfo.NewSize.Height * aspect;
             else this.Height = sizeInfo.NewSize.Width / aspect;
-            
+            ChangePixelSize();
         }
         private void RadiusPreview(object sender, TextCompositionEventArgs e)
         {
@@ -50,6 +45,18 @@ namespace CircleGeneratorWPF
             TextBox textBox = (TextBox)sender;
             int radius = string.IsNullOrEmpty(textBox.Text) ? 1 : int.Parse(textBox.Text);
             _circle.changeRadius(radius);
+            ChangePixelSize();
+        }
+        private void OnChangeCanvas(object sender, SizeChangedEventArgs e)
+        {
+
+            SizeCanvas = e.NewSize; // not work, metod dont called
+            MessageBox.Show((SizeCanvas.ToString()));
+        }
+        private void ChangePixelSize()
+        {
+            //TODO
+            //adaptive size
             DrawCircle(1);
         }
         private static bool IsValid(string str)
@@ -57,6 +64,5 @@ namespace CircleGeneratorWPF
             int i;
             return int.TryParse(str, out i) && i >= 1 && i <= 300;
         }
-
     }
 }

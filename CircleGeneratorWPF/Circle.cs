@@ -12,14 +12,14 @@ namespace CircleGeneratorWPF
     class Circle
     {
         public List<Point> Points;
-        private int _radius;
+        public int Radius;
         public int OffsetX;
         public int OffsetY;
         private int _size;
         public Circle(int radius, int offsetX, int offsetY)
         {
             _size = 2;
-            _radius = radius;
+            Radius = radius;
             Points = new List<Point>();
             OffsetX = offsetX;
             OffsetY = offsetY;
@@ -32,9 +32,9 @@ namespace CircleGeneratorWPF
         }
         private void CreateList()
         {
-            for (int y = 0; y < _radius; ++y)
+            for (int y = 0; y < Radius; ++y)
             {
-                var x = (int)Math.Ceiling(Math.Sqrt((_radius * _radius) - y * y));
+                var x = (int)Math.Ceiling(Math.Sqrt((Radius * Radius) - y * y));
                 Points.Add(new Point(x, y));
                 Points.Add(new Point(y, x));
                 Points.Add(new Point(-x, y));
@@ -55,7 +55,7 @@ namespace CircleGeneratorWPF
 
         public void changeRadius(int radius)
         {
-            _radius = radius;
+            Radius = radius;
             Points.Clear();
             CreateList();
         }
