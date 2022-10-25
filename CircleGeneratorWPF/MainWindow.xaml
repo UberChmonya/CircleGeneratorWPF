@@ -5,34 +5,38 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Names" Height="1015px" Width="1300px"
-        MinWidth="1300px" 
-        MaxWidth="1300px" 
-        MinHeight="1015px" 
-        MaxHeight="1015px">
-    <Grid Margin="0">
+        Title="Names"
+        Width="1300px" 
+        Height="1015px" 
+        WindowStartupLocation="CenterScreen"
+    >
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1000px" />
+            <RowDefinition Height="10*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1000px" />
-            <ColumnDefinition Width="300px" />
+            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
-        <Canvas x:Name="canvas"
-                Background="White" 
-                Grid.Row="0"
-                Grid.Column="0" 
-        />
-        <StackPanel Grid.Row="0" Grid.Column="1">
-            <Label Content="Size" HorizontalAlignment="Center"/>
-            <Slider Value="2" Minimum="2" Maximum="20" SelectionStart="0" Height="50" 
+        <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
+            <Canvas x:Name="canvas"
+                Background="White"
+                Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
+                Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
+            />
+        </Border>
+
+        <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
+            <StackPanel>
+                <Label Content="Size" HorizontalAlignment="Center"/>
+                <Slider Value="2" Minimum="2" Maximum="20" SelectionStart="0" Height="50" 
         IsSelectionRangeEnabled="True" ValueChanged="Slider_Size"  />
-            <Label Content="Radius" HorizontalAlignment="Center"/>
-            <Slider Value="2" Minimum="1" Maximum="300" SelectionStart="0" Height="50" 
+                <Label Content="Radius" HorizontalAlignment="Center"/>
+                <Slider Value="2" Minimum="1" Maximum="300" SelectionStart="0" Height="50" 
         IsSelectionRangeEnabled="True" ValueChanged="Slider_Radius" />
-        </StackPanel>
-        
-                
+            </StackPanel>
+        </Border>
+
     </Grid>
 </Window>

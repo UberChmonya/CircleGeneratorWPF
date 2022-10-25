@@ -34,19 +34,19 @@ namespace CircleGeneratorWPF
 
             canvas.Children.Add(_line);
         }
-        
-        private void Slider_Size(object sender, RoutedPropertyChangedEventArgs<double> slider) 
+
+        private void Slider_Size(object sender, RoutedPropertyChangedEventArgs<double> slider)
         {
             _pixelSize = (int)slider.NewValue;
             _circle.ChangeSize(_pixelSize);
-            
+
             DrawCircle();
         }
         private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider)
         {
             var radius = (int)slider.NewValue;
             _circle.changeRadius(radius);
-            
+
             DrawCircle();
         }
         private void DeleteAllButLine()
@@ -66,12 +66,12 @@ namespace CircleGeneratorWPF
         private void DrawCircle()
         {
             DeleteAllButLine();
-            
+
             foreach (var point in _circle.Points)
             {
                 canvas.Children.Add(point.Rect);
-                Canvas.SetLeft(point.Rect, point.X * (_pixelSize) + 500 - _pixelSize / 2);
-                Canvas.SetTop(point.Rect, point.Y * (_pixelSize) + 500 - _pixelSize / 2);
+                Canvas.SetLeft(point.Rect, point.X * _pixelSize - _pixelSize / 2);
+                Canvas.SetTop(point.Rect, point.Y * _pixelSize - _pixelSize / 2);
             }
         }
     }
