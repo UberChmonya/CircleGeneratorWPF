@@ -46,7 +46,7 @@ namespace CircleGeneratorWPF
             PixelSize = (int)slider.NewValue;
             test.ChangeSize(PixelSize);
             InformationLayer.Children.Clear();
-            InformationLayer.Children.Add(line);
+            //InformationLayer.Children.Add(line);
             foreach (var point in test.Points)
             {
                 InformationLayer.Children.Add(point.Rect);
@@ -54,5 +54,6 @@ namespace CircleGeneratorWPF
                 Canvas.SetTop(point.Rect, point.Y * (PixelSize) + 500 - PixelSize / 2);
             }
         }
+        private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider) { }
     }
 }
