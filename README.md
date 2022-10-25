@@ -1,6 +1,6 @@
 # CircleGeneratorWPF
 a simple generator of circle pixel massive. 
 TODO list:
-  add flex setting
-  more user freandly interface
-  add export to c - like massive
+  add flex setting \n
+  more user freandly interface\n
+  add export to c - like massive\n
