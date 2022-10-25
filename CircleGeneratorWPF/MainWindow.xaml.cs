@@ -27,7 +27,8 @@ namespace CircleGeneratorWPF
             _test = new Circle(40, 10, 10);
             _line = new Line();
             InformationLayer = new Canvas();
-            
+            _pixelSize = 1;
+
             DrawInformationLayer();
         }
 
@@ -39,21 +40,34 @@ namespace CircleGeneratorWPF
             _line.X2 = 1000;
             _line.Y1 = 0;
             _line.Y2 = 1000;
+
             InformationLayer.Children.Add(_line);
-            _pixelSize = 1;
         }
         
         private void Slider_Size(object sender, RoutedPropertyChangedEventArgs<double> slider) 
         {
             _pixelSize = (int)slider.NewValue;
             _test.ChangeSize(_pixelSize);
-            InformationLayer.Children.Clear();
-            //InformationLayer.Children.Add(line);
+            
+            DeleteAllButLine();
+
             foreach (var point in _test.Points)
             {
                 InformationLayer.Children.Add(point.Rect);
                 Canvas.SetLeft(point.Rect, point.X * (_pixelSize) + 500 - _pixelSize / 2);
                 Canvas.SetTop(point.Rect, point.Y * (_pixelSize) + 500 - _pixelSize / 2);
+            }
+        }
+
+        private void DeleteAllButLine()
+        {
+            var childrens = InformationLayer.Children;
+            
+            var removedChildren = childrens.Cast<object>().Where(child => !(child is Line)).ToList();
+
+            foreach (var child in removedChildren)
+            {
+                InformationLayer.Children.Remove(child as UIElement);
             }
         }
 
