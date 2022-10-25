@@ -19,16 +19,15 @@ namespace CircleGeneratorWPF
     public partial class MainWindow : Window
     {
         private int _pixelSize;
-        private Circle _test;
+        private Circle _circle;
         private Line _line;
 
         public MainWindow()
         {
-            _test = new Circle(40, 10, 10);
+            _circle = new Circle(40, 10, 10);
             _line = new Line();
-            InformationLayer = new Canvas();
+            canvas = new Canvas();
             _pixelSize = 1;
-
             DrawInformationLayer();
         }
 
@@ -41,39 +40,39 @@ namespace CircleGeneratorWPF
             _line.Y1 = 0;
             _line.Y2 = 1000;
 
-            InformationLayer.Children.Add(_line);
+            canvas.Children.Add(_line);
         }
         
         private void Slider_Size(object sender, RoutedPropertyChangedEventArgs<double> slider) 
         {
             _pixelSize = (int)slider.NewValue;
-            _test.ChangeSize(_pixelSize);
+            _circle.ChangeSize(_pixelSize);
             Draw_Circle();
         }
 
         private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider)
         {
             int radius = (int)slider.NewValue;
-            _test.changeRadius(radius);
+            _circle.changeRadius(radius);
             Draw_Circle();
         }
         private void DeleteAllButLine()
         {
-            var childrens = InformationLayer.Children;
+            var childrens = canvas.Children;
 
             var removedChildren = childrens.Cast<object>().Where(child => !(child is Line)).ToList();
 
             foreach (var child in removedChildren)
             {
-                InformationLayer.Children.Remove(child as UIElement);
+                canvas.Children.Remove(child as UIElement);
             }
         }
         private void Draw_Circle()
         {
             DeleteAllButLine();
-            foreach (var point in _test.Points)
+            foreach (var point in _circle.Points)
             {
-                InformationLayer.Children.Add(point.Rect);
+                canvas.Children.Add(point.Rect);
                 Canvas.SetLeft(point.Rect, point.X * (_pixelSize) + 500 - _pixelSize / 2);
                 Canvas.SetTop(point.Rect, point.Y * (_pixelSize) + 500 - _pixelSize / 2);
             }

@@ -19,7 +19,7 @@
             <ColumnDefinition Width="300px" />
         </Grid.ColumnDefinitions>
 
-        <Canvas x:Name="InformationLayer"
+        <Canvas x:Name="canvas"
                 Background="White" 
                 Grid.Row="0"
                 Grid.Column="0"    
