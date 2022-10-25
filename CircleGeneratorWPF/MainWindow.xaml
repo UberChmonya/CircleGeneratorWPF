@@ -22,7 +22,7 @@
         <Canvas x:Name="canvas"
                 Background="White" 
                 Grid.Row="0"
-                Grid.Column="0"    
+                Grid.Column="0" 
         />
         <StackPanel Grid.Row="0" Grid.Column="1">
             <Label Content="Size" HorizontalAlignment="Center"/>

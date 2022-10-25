@@ -1,33 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CircleGeneratorWPF
 {
     public partial class MainWindow : Window
     {
         private int _pixelSize;
-        private Circle _circle;
-        private Line _line;
+        private readonly Circle _circle;
+        private readonly Line _line;
 
         public MainWindow()
         {
+            canvas = new Canvas();
             _circle = new Circle(40, 10, 10);
             _line = new Line();
-            canvas = new Canvas();
             _pixelSize = 1;
+
             DrawInformationLayer();
         }
 
@@ -47,28 +39,34 @@ namespace CircleGeneratorWPF
         {
             _pixelSize = (int)slider.NewValue;
             _circle.ChangeSize(_pixelSize);
-            Draw_Circle();
+            
+            DrawCircle();
         }
         private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider)
         {
-            int radius = (int)slider.NewValue;
+            var radius = (int)slider.NewValue;
             _circle.changeRadius(radius);
-            Draw_Circle();
+            
+            DrawCircle();
         }
         private void DeleteAllButLine()
         {
-            var childrens = canvas.Children;
+            var removedItems = new List<UIElement>();
 
-            var removedChildren = childrens.Cast<object>().Where(child => !(child is Line)).ToList();
-
-            foreach (var child in removedChildren)
+            foreach (var child in canvas.Children.OfType<Rectangle>())
             {
-                canvas.Children.Remove(child as UIElement);
+                removedItems.Add(child);
+            }
+
+            foreach (var item in removedItems)
+            {
+                canvas.Children.Remove(item);
             }
         }
-        private void Draw_Circle()
+        private void DrawCircle()
         {
             DeleteAllButLine();
+            
             foreach (var point in _circle.Points)
             {
                 canvas.Children.Add(point.Rect);
