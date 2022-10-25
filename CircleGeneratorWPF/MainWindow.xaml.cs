@@ -16,44 +16,50 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace CircleGeneratorWPF
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
-        public int PixelSize;
-        Circle test;
-        Line line;
-        private void Window_ContentRendered(object sender, EventArgs e)
+        private int _pixelSize;
+        private Circle _test;
+        private Line _line;
+
+        public MainWindow()
         {
-            DrawInformationLayer();   
+            _test = new Circle(40, 10, 10);
+            _line = new Line();
+            InformationLayer = new Canvas();
+            
+            DrawInformationLayer();
         }
+
         private void DrawInformationLayer()
         {
-            line = new Line();
-            line.StrokeThickness = 4;
-            line.Stroke = Brushes.Black;
-            line.X1 = 1000;
-            line.X2 = 1000;
-            line.Y1 = 0;
-            line.Y2 = 1000;
-            InformationLayer.Children.Add(line);
-            PixelSize = 1;
-            test = new Circle(40, 10, 10);
+            _line.StrokeThickness = 4;
+            _line.Stroke = Brushes.Black;
+            _line.X1 = 1000;
+            _line.X2 = 1000;
+            _line.Y1 = 0;
+            _line.Y2 = 1000;
+            InformationLayer.Children.Add(_line);
+            _pixelSize = 1;
         }
+        
         private void Slider_Size(object sender, RoutedPropertyChangedEventArgs<double> slider) 
         {
-            PixelSize = (int)slider.NewValue;
-            test.ChangeSize(PixelSize);
+            _pixelSize = (int)slider.NewValue;
+            _test.ChangeSize(_pixelSize);
             InformationLayer.Children.Clear();
             //InformationLayer.Children.Add(line);
-            foreach (var point in test.Points)
+            foreach (var point in _test.Points)
             {
                 InformationLayer.Children.Add(point.Rect);
-                Canvas.SetLeft(point.Rect, point.X * (PixelSize) + 500 - PixelSize / 2);
-                Canvas.SetTop(point.Rect, point.Y * (PixelSize) + 500 - PixelSize / 2);
+                Canvas.SetLeft(point.Rect, point.X * (_pixelSize) + 500 - _pixelSize / 2);
+                Canvas.SetTop(point.Rect, point.Y * (_pixelSize) + 500 - _pixelSize / 2);
             }
         }
-        private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider) { }
+
+        private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider)
+        {
+            
+        }
     }
 }
