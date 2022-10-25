@@ -48,21 +48,19 @@ namespace CircleGeneratorWPF
         {
             _pixelSize = (int)slider.NewValue;
             _test.ChangeSize(_pixelSize);
-            
-            DeleteAllButLine();
-
-            foreach (var point in _test.Points)
-            {
-                InformationLayer.Children.Add(point.Rect);
-                Canvas.SetLeft(point.Rect, point.X * (_pixelSize) + 500 - _pixelSize / 2);
-                Canvas.SetTop(point.Rect, point.Y * (_pixelSize) + 500 - _pixelSize / 2);
-            }
+            Draw_Circle();
         }
 
+        private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider)
+        {
+            int radius = (int)slider.NewValue;
+            _test.changeRadius(radius);
+            Draw_Circle();
+        }
         private void DeleteAllButLine()
         {
             var childrens = InformationLayer.Children;
-            
+
             var removedChildren = childrens.Cast<object>().Where(child => !(child is Line)).ToList();
 
             foreach (var child in removedChildren)
@@ -70,10 +68,15 @@ namespace CircleGeneratorWPF
                 InformationLayer.Children.Remove(child as UIElement);
             }
         }
-
-        private void Slider_Radius(object sender, RoutedPropertyChangedEventArgs<double> slider)
+        private void Draw_Circle()
         {
-            
+            DeleteAllButLine();
+            foreach (var point in _test.Points)
+            {
+                InformationLayer.Children.Add(point.Rect);
+                Canvas.SetLeft(point.Rect, point.X * (_pixelSize) + 500 - _pixelSize / 2);
+                Canvas.SetTop(point.Rect, point.Y * (_pixelSize) + 500 - _pixelSize / 2);
+            }
         }
     }
 }

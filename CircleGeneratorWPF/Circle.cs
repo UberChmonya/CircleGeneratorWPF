@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,13 @@ namespace CircleGeneratorWPF
         {
             foreach(var point in Points) point.Angle = Math.Atan2(point.X, -point.Y);
             Points.Sort();
+        }
+
+        public void changeRadius(int radius)
+        {
+            _radius = radius;
+            Points.Clear();
+            CreateList();
         }
 
     }
