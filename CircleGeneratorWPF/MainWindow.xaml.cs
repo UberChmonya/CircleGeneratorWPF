@@ -81,7 +81,7 @@ namespace CircleGeneratorWPF
             return int.TryParse(str, out var i) && i >= minNum && i <= maxNum;
         }
 
-        private async void SaveToClipboardButtonPressed(object sender, RoutedEventArgs e)
+        private void SaveToClipboardButtonPressed(object sender, RoutedEventArgs e)
         {
             var outputString = "uint16_t circlePointX[] = { " + string.Join(" ", CreateOutputX()) + " };\n" +
                             "uint16_t circlePointY[] = { " + string.Join(" ", CreateOutputY()) + " };\n";
