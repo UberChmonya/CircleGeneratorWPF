@@ -19,7 +19,6 @@ namespace CircleGeneratorWPF
             _circle = new Circle(40, 10, 10);
             InitializeComponent();
         }
-    
         private void DrawCircle(int pixelSize)
         {
             canvas.Children.Clear();
