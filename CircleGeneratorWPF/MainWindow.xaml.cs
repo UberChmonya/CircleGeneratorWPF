@@ -17,18 +17,14 @@ namespace CircleGeneratorWPF
 
             canvas = new Canvas();
             _circle = new Circle(40, 10, 10);
-
-            var size = GetCanvasSize();
-
-            MessageBox.Show($"{size.Item1} {size.Item2}");
         }
 
-        private (int, int) GetCanvasSize()
+        private (int height, int width) GetCanvasSize()
         {
             var row = DgCircle.RowDefinitions.First(r => r.Name == "CanvasRow");
             var column = DgCircle.ColumnDefinitions.First(c => c.Name == "CanvasColumn");
 
-            return ((int)row.Height.Value, (int)column.Width.Value);
+            return ((int)row.ActualHeight, (int)column.ActualWidth);
         }
     
         private void DrawCircle(int pixelSize)
@@ -38,8 +34,8 @@ namespace CircleGeneratorWPF
             foreach (var point in _circle.Points)
             {
                 canvas.Children.Add(point.Rect);
-                Canvas.SetLeft(point.Rect, point.X * pixelSize - pixelSize / 2);
-                Canvas.SetTop(point.Rect, point.Y * pixelSize - pixelSize / 2);
+                Canvas.SetLeft(point.Rect, point.X * pixelSize);
+                Canvas.SetTop(point.Rect, point.Y * pixelSize);
             }
         }
         
@@ -72,9 +68,11 @@ namespace CircleGeneratorWPF
         
         private void ChangePixelSize()
         {
-            //TODO
-            //adaptive size
-            DrawCircle(1);
+            var size = GetCanvasSize();
+
+            var pixelSize = size.height / (_circle.Radius * 2);
+
+            DrawCircle(pixelSize);
         }
         
         private static bool IsValid(string str)
