@@ -14,7 +14,7 @@ namespace CircleGeneratorWPF
         {
             InitializeComponent();
             
-            _circle = new Circle(10, 10);
+            _circle = new Circle();
         }
 
         private (int height, int width) GetCanvasSize()
@@ -59,7 +59,7 @@ namespace CircleGeneratorWPF
         
         private void RadiusPreview(object sender, TextCompositionEventArgs e)
         {
-            e.Handled = !IsValid(((TextBox)sender).Text + e.Text);
+            e.Handled = !IsValid(((TextBox)sender).Text + e.Text, 0, 300);
         }
         
         private void RadiusChanged(object sender, TextChangedEventArgs e)
@@ -73,9 +73,9 @@ namespace CircleGeneratorWPF
             DrawCircle();
         }
 
-        private static bool IsValid(string str)
+        private static bool IsValid(string str, int minNum, int maxNum)
         {
-            return int.TryParse(str, out var i) && i >= 1 && i <= 300;
+            return int.TryParse(str, out var i) && i >= minNum && i <= maxNum;
         }
 
         private void Buffer(object sender, RoutedEventArgs e)
@@ -91,7 +91,7 @@ namespace CircleGeneratorWPF
             
             for (var index = 0; index < _circle.Points.Count; index++)
             {
-                text += _circle.Points[index].X;
+                text += _circle.Points[index].X + _circle.OffsetX;
 
                 if (index != _circle.Points.Count - 1)
                 {
@@ -110,7 +110,7 @@ namespace CircleGeneratorWPF
             
             for (var index = 0; index < _circle.Points.Count; index++)
             {
-                text += _circle.Points[index].Y;
+                text += _circle.Points[index].Y + _circle.OffsetY;
 
                 if (index != _circle.Points.Count - 1)
                 {
@@ -121,6 +121,21 @@ namespace CircleGeneratorWPF
             text += " };";
 
             return text;
+        }
+
+        private void BeforeSettingOffsets(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !IsValid(((TextBox)sender).Text + e.Text, 0, 999);
+        }
+
+        private void OffsetXTextChanged(object sender, TextChangedEventArgs e)
+        {
+            _circle.OffsetX = int.TryParse(((TextBox)sender).Text, out var num) ? num : 0;
+        }
+
+        private void OffsetYTextChanged(object sender, TextChangedEventArgs e)
+        {
+            _circle.OffsetY = int.TryParse(((TextBox)sender).Text, out var num) ? num : 0;
         }
     }
 }

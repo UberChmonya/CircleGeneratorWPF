@@ -14,13 +14,13 @@ namespace CircleGeneratorWPF
         
         public int PixelSize { get; private set; }
 
-        public Circle(int offsetX, int offsetY)
+        public Circle()
         {
             PixelSize = 2;
             Radius = 10;
             
-            OffsetX = offsetX;
-            OffsetY = offsetY;
+            OffsetX = 0;
+            OffsetY = 0;
             
             Points = new List<Point>();
             
