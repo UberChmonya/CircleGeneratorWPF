@@ -83,8 +83,8 @@ namespace CircleGeneratorWPF
 
         private void SaveToClipboardButtonPressed(object sender, RoutedEventArgs e)
         {
-            var outputString = "uint16_t circlePointX[] = { " + string.Join(" ", CreateOutputX()) + " };\n" +
-                            "uint16_t circlePointY[] = { " + string.Join(" ", CreateOutputY()) + " };\n";
+            var outputString = "uint16_t circlePointX[] = { " + string.Join(", ", CreateOutputX()) + " };\n" +
+                            "uint16_t circlePointY[] = { " + string.Join(", ", CreateOutputY()) + " };\n";
 
             CopyToClipboard(outputString);
         }
