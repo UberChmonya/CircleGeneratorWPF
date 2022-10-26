@@ -32,8 +32,8 @@ namespace CircleGeneratorWPF
             foreach (var point in _circle.Points)
             {
                 CircleCanvas.Children.Add(point.Rect);
-                Canvas.SetLeft(point.Rect, point.X * _circle.PixelSize);
-                Canvas.SetTop(point.Rect, point.Y * _circle.PixelSize);
+                Canvas.SetLeft(point.Rect, point.X * _circle.PixelSize - _circle.PixelSize/2);
+                Canvas.SetTop(point.Rect, point.Y * _circle.PixelSize - _circle.PixelSize/2);
             }
         }
         
@@ -70,7 +70,7 @@ namespace CircleGeneratorWPF
 
         private void ChangePixelSize()
         {
-            _circle.ChangeSize(GetCanvasSize().height / (_circle.Radius * 2));
+            _circle.ChangeSize(GetCanvasSize().height / ((_circle.Radius * 2) + 1));
         }
         
         private static bool IsValid(string str)
