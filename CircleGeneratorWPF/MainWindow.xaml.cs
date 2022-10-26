@@ -8,41 +8,52 @@ namespace CircleGeneratorWPF
     public partial class MainWindow : Window
     {
         private readonly Circle _circle;
-        private readonly double _aspect = 1.3;
-        private Size SizeCanvas;
-        
+        private const double Aspect = 1.3;
+
         public MainWindow()
         {
             InitializeComponent();
-
-            canvas = new Canvas();
-            _circle = new Circle(40, 10, 10);
+            
+            _circle = new Circle(10, 10);
         }
 
         private (int height, int width) GetCanvasSize()
         {
-            var row = DgCircle.RowDefinitions.First(r => r.Name == "CanvasRow");
-            var column = DgCircle.ColumnDefinitions.First(c => c.Name == "CanvasColumn");
+            var row = GCircle.RowDefinitions.First(r => r.Name == "CanvasRow");
+            var column = GCircle.ColumnDefinitions.First(c => c.Name == "CanvasColumn");
 
             return ((int)row.ActualHeight, (int)column.ActualWidth);
         }
+<<<<<<< HEAD
         private void DrawCircle(int pixelSize)
+=======
+    
+        private void DrawCircle()
+>>>>>>> e2b9522 (Code refactoring.)
         {
-            canvas.Children.Clear();
+            CircleCanvas.Children.Clear();
             
             foreach (var point in _circle.Points)
             {
-                canvas.Children.Add(point.Rect);
-                Canvas.SetLeft(point.Rect, point.X * pixelSize);
-                Canvas.SetTop(point.Rect, point.Y * pixelSize);
+                CircleCanvas.Children.Add(point.Rect);
+                Canvas.SetLeft(point.Rect, point.X * _circle.PixelSize);
+                Canvas.SetTop(point.Rect, point.Y * _circle.PixelSize);
             }
         }
         
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-            if (sizeInfo.WidthChanged) Width = sizeInfo.NewSize.Height * _aspect;
-            else Height = sizeInfo.NewSize.Width / _aspect;
+            if (sizeInfo.WidthChanged)
+            {
+                Width = sizeInfo.NewSize.Height * Aspect;
+            }
+            else
+            {
+                Height = sizeInfo.NewSize.Width / Aspect;
+            }
+            
             ChangePixelSize();
+            DrawCircle();
         }
         
         private void RadiusPreview(object sender, TextCompositionEventArgs e)
@@ -55,23 +66,15 @@ namespace CircleGeneratorWPF
             var textBox = (TextBox)sender;
             var radius = string.IsNullOrEmpty(textBox.Text) ? 1 : int.Parse(textBox.Text);
             
-            _circle.changeRadius(radius);
+            _circle.ChangeRadius(radius);
             ChangePixelSize();
+            
+            DrawCircle();
         }
-        
-        private void OnChangeCanvas(object sender, SizeChangedEventArgs e)
-        {
-            SizeCanvas = e.NewSize; // not work, metod dont called
-            MessageBox.Show(SizeCanvas.ToString());
-        }
-        
+
         private void ChangePixelSize()
         {
-            var size = GetCanvasSize();
-
-            var pixelSize = size.height / (_circle.Radius * 2);
-
-            DrawCircle(pixelSize);
+            _circle.ChangeSize(GetCanvasSize().height / (_circle.Radius * 2));
         }
         
         private static bool IsValid(string str)

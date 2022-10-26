@@ -10,7 +10,7 @@
         Height="1015px" 
         WindowStartupLocation="CenterScreen">
     
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="DgCircle">
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="GCircle">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" Name="CanvasRow" />
         </Grid.RowDefinitions>
@@ -20,11 +20,10 @@
         </Grid.ColumnDefinitions>
 
         <Border Grid.Row="0" Grid.Column="0" BorderBrush="Black" BorderThickness="1">
-            <Canvas x:Name="canvas"
+            <Canvas x:Name="CircleCanvas"
                 Background="White"
                 Width="{Binding ActualHeight, RelativeSource={RelativeSource Self}}" 
                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
-                SizeChanged="OnChangeCanvas"
             />
         </Border>
 
