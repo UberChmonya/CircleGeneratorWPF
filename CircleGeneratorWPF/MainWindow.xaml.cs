@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -79,12 +81,30 @@ namespace CircleGeneratorWPF
             return int.TryParse(str, out var i) && i >= minNum && i <= maxNum;
         }
 
-        private void Buffer(object sender, RoutedEventArgs e)
+        private async void SaveToClipboardButtonPressed(object sender, RoutedEventArgs e)
         {
-            var clipboard = "uint16_t circlePointX[] = { " + string.Join(" ", CreateOutputX()) + " };\n" +
-                                "uint16_t circlePointY[] = { " + string.Join(" ", CreateOutputY()) + " };\n";
+            var outputString = "uint16_t circlePointX[] = { " + string.Join(" ", CreateOutputX()) + " };\n" +
+                            "uint16_t circlePointY[] = { " + string.Join(" ", CreateOutputY()) + " };\n";
+
+            CopyToClipboard(outputString);
+        }
+
+        private async void CopyToClipboard(string clipboardText)
+        {
+            Clipboard.SetText(clipboardText);
+
+            SaveButton.Content = "Copied!";
+            SaveButton.IsEnabled = false;
             
-            Clipboard.SetText(clipboard);
+            await Task.Run(() => ThreadSleep(3));
+            
+            SaveButton.Content = "Copy to clipboard";
+            SaveButton.IsEnabled = true;
+        }
+
+        private void ThreadSleep(int seconds)
+        {
+            Thread.Sleep(seconds * 1000);
         }
 
         private IEnumerable<string> CreateOutputX()
