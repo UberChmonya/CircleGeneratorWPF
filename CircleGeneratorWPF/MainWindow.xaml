@@ -5,18 +5,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Names"
+        Title="Circles"
         Width="1300px" 
         Height="1015px" 
-        WindowStartupLocation="CenterScreen"
-
-    >
-    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        WindowStartupLocation="CenterScreen">
+    
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="DgCircle">
         <Grid.RowDefinitions>
-            <RowDefinition Height="10*" />
+            <RowDefinition Height="10*" Name="CanvasRow" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="10*" Name="CanvasColumn" />
             <ColumnDefinition Width="3*" />
         </Grid.ColumnDefinitions>
 
@@ -31,11 +30,9 @@
 
         <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
             <StackPanel>
-
                 <Label Content="Radius" HorizontalAlignment="Center"/>
                 <TextBox PreviewTextInput="RadiusPreview" TextChanged="RadiusChanged"/>
             </StackPanel>
         </Border>
-
     </Grid>
 </Window>
