@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CircleGeneratorWPF
 {
     public class Circle
     {
-        public List<Point> Points { get; }
+        public List<Point> Points { get; private set; }
         public int Radius { get; private set; }
         
         public int OffsetX;
@@ -65,6 +66,7 @@ namespace CircleGeneratorWPF
             }
             
             Points.Sort();
+            Points = Points.Distinct().ToList();
         }
 
         public void ChangeRadius(int radius)

@@ -80,13 +80,47 @@ namespace CircleGeneratorWPF
 
         private void Buffer(object sender, RoutedEventArgs e)
         {
-            string output  = "uint16_t circlePointX";
-            foreach(var point in _circle.Points)
-            {
-                output += ", "+ point.X.ToString() ;
-            }
-            Clipboard.SetText(output);
+            var clipboard = $"{CreateOutputXString()}\n{CreateOutputYString()}";
+            
+            Clipboard.SetText(clipboard);
+        }
 
+        private string CreateOutputXString()
+        {
+            var text  = "uint16_t circlePointX[] = { ";
+            
+            for (var index = 0; index < _circle.Points.Count; index++)
+            {
+                text += _circle.Points[index].X;
+
+                if (index != _circle.Points.Count - 1)
+                {
+                    text += ", ";
+                }
+            }
+
+            text += " };";
+
+            return text;
+        }
+        
+        private string CreateOutputYString()
+        {
+            var text  = "uint16_t circlePointY[] = { ";
+            
+            for (var index = 0; index < _circle.Points.Count; index++)
+            {
+                text += _circle.Points[index].Y;
+
+                if (index != _circle.Points.Count - 1)
+                {
+                    text += ", ";
+                }
+            }
+
+            text += " };";
+
+            return text;
         }
     }
 }

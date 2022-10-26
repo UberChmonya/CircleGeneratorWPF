@@ -32,6 +32,7 @@ namespace CircleGeneratorWPF
             
             return Angle > other.Angle ? 1 : 0;
         }
+        
         public void ChangeSize(int size) 
         {
             _size = size;
@@ -42,6 +43,16 @@ namespace CircleGeneratorWPF
                 Height = _size,
                 Fill = Brushes.Black
             };
+        }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Point point && point.Angle == Angle;
+        }
+
+        public override int GetHashCode()
+        {
+            return Angle.GetHashCode();
         }
     }
 }
