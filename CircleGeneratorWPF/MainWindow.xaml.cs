@@ -24,12 +24,8 @@ namespace CircleGeneratorWPF
 
             return ((int)row.ActualHeight, (int)column.ActualWidth);
         }
-<<<<<<< HEAD
-        private void DrawCircle(int pixelSize)
-=======
-    
+
         private void DrawCircle()
->>>>>>> e2b9522 (Code refactoring.)
         {
             CircleCanvas.Children.Clear();
             
