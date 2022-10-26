@@ -94,7 +94,7 @@ namespace CircleGeneratorWPF
         
         private IEnumerable<string> CreateOutputY()
         {
-            return _circle.Points.Select(point => (point.X + _circle.OffsetY).ToString());
+            return _circle.Points.Select(point => (point.Y + _circle.OffsetY).ToString());
         }
 
         private void BeforeSettingOffsets(object sender, TextCompositionEventArgs e)
