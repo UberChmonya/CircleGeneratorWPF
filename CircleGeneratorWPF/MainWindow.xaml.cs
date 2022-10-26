@@ -36,7 +36,12 @@ namespace CircleGeneratorWPF
                 Canvas.SetTop(point.Rect, point.Y * _circle.PixelSize - _circle.PixelSize/2);
             }
         }
-        
+
+        private void ChangePixelSize()
+        {
+            _circle.ChangeSize(GetCanvasSize().height / ((_circle.Radius * 2) + 1));
+        }
+
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
             if (sizeInfo.WidthChanged)
@@ -68,14 +73,20 @@ namespace CircleGeneratorWPF
             DrawCircle();
         }
 
-        private void ChangePixelSize()
-        {
-            _circle.ChangeSize(GetCanvasSize().height / ((_circle.Radius * 2) + 1));
-        }
-        
         private static bool IsValid(string str)
         {
             return int.TryParse(str, out var i) && i >= 1 && i <= 300;
+        }
+
+        private void Buffer(object sender, RoutedEventArgs e)
+        {
+            string output  = "uint16_t circlePointX";
+            foreach(var point in _circle.Points)
+            {
+                output += ", "+ point.X.ToString() ;
+            }
+            Clipboard.SetText(output);
+
         }
     }
 }

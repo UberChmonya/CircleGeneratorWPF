@@ -31,6 +31,7 @@
             <StackPanel>
                 <Label Content="Radius" HorizontalAlignment="Center"/>
                 <TextBox PreviewTextInput="RadiusPreview" TextChanged="RadiusChanged"/>
+                <Button Click="Buffer" Height="20" Content="Copy to clipboard"/>
             </StackPanel>
         </Border>
     </Grid>
