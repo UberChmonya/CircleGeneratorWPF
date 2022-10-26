@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -80,47 +81,20 @@ namespace CircleGeneratorWPF
 
         private void Buffer(object sender, RoutedEventArgs e)
         {
-            var clipboard = $"{CreateOutputXString()}\n{CreateOutputYString()}";
+            var clipboard = "uint16_t circlePointX[] = { " + string.Join(" ", CreateOutputX()) + " };\n" +
+                                "uint16_t circlePointY[] = { " + string.Join(" ", CreateOutputY()) + " };\n";
             
             Clipboard.SetText(clipboard);
         }
 
-        private string CreateOutputXString()
+        private IEnumerable<string> CreateOutputX()
         {
-            var text  = "uint16_t circlePointX[] = { ";
-            
-            for (var index = 0; index < _circle.Points.Count; index++)
-            {
-                text += _circle.Points[index].X + _circle.OffsetX;
-
-                if (index != _circle.Points.Count - 1)
-                {
-                    text += ", ";
-                }
-            }
-
-            text += " };";
-
-            return text;
+            return _circle.Points.Select(point => (point.X + _circle.OffsetX).ToString());
         }
         
-        private string CreateOutputYString()
+        private IEnumerable<string> CreateOutputY()
         {
-            var text  = "uint16_t circlePointY[] = { ";
-            
-            for (var index = 0; index < _circle.Points.Count; index++)
-            {
-                text += _circle.Points[index].Y + _circle.OffsetY;
-
-                if (index != _circle.Points.Count - 1)
-                {
-                    text += ", ";
-                }
-            }
-
-            text += " };";
-
-            return text;
+            return _circle.Points.Select(point => (point.X + _circle.OffsetY).ToString());
         }
 
         private void BeforeSettingOffsets(object sender, TextCompositionEventArgs e)
