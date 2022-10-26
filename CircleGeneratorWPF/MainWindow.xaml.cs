@@ -96,15 +96,10 @@ namespace CircleGeneratorWPF
             SaveButton.Content = "Copied!";
             SaveButton.IsEnabled = false;
             
-            await Task.Run(() => ThreadSleep(3));
+            await Task.Run(() => Thread.Sleep(3000));
             
             SaveButton.Content = "Copy to clipboard";
             SaveButton.IsEnabled = true;
-        }
-
-        private void ThreadSleep(int seconds)
-        {
-            Thread.Sleep(seconds * 1000);
         }
 
         private IEnumerable<string> CreateOutputX()
