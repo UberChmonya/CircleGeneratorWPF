@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -11,7 +14,7 @@ namespace CircleGeneratorWPF
     public partial class MainWindow : Window
     {
         private readonly Circle _circle;
-        private const double Aspect = 1.3;
+        private const double _aspect = 1.3;
 
         public MainWindow()
         {
@@ -47,19 +50,21 @@ namespace CircleGeneratorWPF
 
         protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
+            base.OnRenderSizeChanged(sizeInfo);
+
             if (sizeInfo.WidthChanged)
             {
-                Width = sizeInfo.NewSize.Height * Aspect;
+                Width = sizeInfo.NewSize.Height * _aspect;
             }
-            else
+            else if (sizeInfo.HeightChanged)
             {
-                Height = sizeInfo.NewSize.Width / Aspect;
+                Height = sizeInfo.NewSize.Width / _aspect;
             }
-            
+
             ChangePixelSize();
             DrawCircle();
         }
-        
+
         private void RadiusPreview(object sender, TextCompositionEventArgs e)
         {
             e.Handled = !IsValid(((TextBox)sender).Text + e.Text, 0, 300);

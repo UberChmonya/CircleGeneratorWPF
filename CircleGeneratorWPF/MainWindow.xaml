@@ -9,13 +9,13 @@
         Width="1300px" 
         Height="1015px" 
         WindowStartupLocation="CenterScreen">
-    
+
     <Window.Resources>
         <Style x:Key="StackPanelProps">
             <Setter Property="Control.Margin" Value="10, 0"/>
         </Style>
     </Window.Resources>
-    
+
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="GCircle">
         <Grid.RowDefinitions>
             <RowDefinition Height="10*" Name="CanvasRow" />
@@ -36,14 +36,14 @@
         <Border Grid.Row="0" Grid.Column="1" BorderBrush="Black" BorderThickness="1">
             <StackPanel Style="{ StaticResource StackPanelProps}">
                 <Label Content="Radius" HorizontalAlignment="Center"/>
-                <TextBox PreviewTextInput="RadiusPreview" TextChanged="RadiusChanged"/>
-                
+                <TextBox PreviewTextInput="RadiusPreview" TextChanged="RadiusChanged" />
+
                 <Label Content="OffsetX" HorizontalAlignment="Center"/>
                 <TextBox PreviewTextInput="BeforeSettingOffsets" TextChanged="OffsetXTextChanged"/>
-                
+
                 <Label Content="OffsetY" HorizontalAlignment="Center"/>
                 <TextBox PreviewTextInput="BeforeSettingOffsets" TextChanged="OffsetYTextChanged"/>
-                
+
                 <Border Height="20"/>
                 <Button Click="SaveToClipboardButtonPressed" Height="20" Content="Copy to clipboard" Name="SaveButton"/>
             </StackPanel>
